@@ -15,6 +15,7 @@ def get_book(book_id):
         return {"error": "Book not found"}, 404
     return book
 
-app.run(port=5002)
+if __name__ == "__main__":
+    app.run(port=5002)
 python book-service/app.py
 http://localhost:5002/books/1

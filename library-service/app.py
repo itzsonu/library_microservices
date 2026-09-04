@@ -19,9 +19,13 @@ student_service = discover("student-service")
     if not student_service:
         return {"error": "Student Service not available"}, 503
 
+   try:
     student_response = requests.get(
-        f"{student_service}/students/{student_id}"
+        f"{student_service}/students/{student_id}",
+        timeout=5
     )
+except requests.RequestException:
+    return {"error": "Student Service unavailable"}, 503 
     if student_response.status_code != 200:
         return {"error": "Student not found"}, 404
     student = student_response.json()
@@ -43,4 +47,6 @@ student_service = discover("student-service")
         "book": book
     }
 
-app.run(port=5003)
+
+if __name__ == "__main__":
+    app.run(port=5003)
