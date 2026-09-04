@@ -1,12 +1,15 @@
 import requests
 
+REGISTRY_URL = "http://localhost:5000"
+
+data = {
+    "name": "student-service",
+    "url": "http://localhost:5001"
+}
+
 response = requests.post(
-    "http://localhost:5000/register",
-    json={
-        "name": "student-service",
-        "url": "http://localhost:5001"
-    }
+    f"{REGISTRY_URL}/register",
+    json=data
 )
 
 print(response.json())
-python student-service/register.py
